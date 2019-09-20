@@ -34,7 +34,6 @@ public class PassprotController {
 	//执行注册
 	@GetMapping("reg")  
 	public String reg() {
-		System.out.println("getreg来了");
 		
 		return "passport/reg";
 		
@@ -68,7 +67,6 @@ public class PassprotController {
 	
 	@GetMapping("login")
 	public String login() {
-		System.out.println("GEtlogin来");
 		return "passport/login";
 	}
 	

@@ -73,6 +73,7 @@
 			
 			
 		</where>
+		order by updated desc
 	</select>
 
 	<delete id="deleteByPrimaryKey"

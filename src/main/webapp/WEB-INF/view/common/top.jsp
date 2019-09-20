@@ -21,7 +21,7 @@
 <div class="container-fulid">
 	<nav class="navbar navbar-light bg-light">
 		<a class="navbar-brand" href="/" title="CMS"><img alt="CMS"
-			src="/resources/images/logo.png" style="width: 200px;height: 80px;"> </a>
+			src="/resources/img/锦贤头条.png" style="width: 200px;height: 80px;"> </a>
 
 		<!-- 搜索框：在专业高级二学完ElasticSearch后实现 -->
 		<form class="form-inline">

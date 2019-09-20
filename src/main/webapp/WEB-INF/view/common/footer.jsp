@@ -8,3 +8,6 @@
 <script type="text/javascript" src="/resources/js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="/resources/js/jquery.validate.js"></script>
+
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link href="/resources/css/sb-admin.css" rel="stylesheet">

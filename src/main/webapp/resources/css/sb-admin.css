@@ -90,7 +90,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .navbar-nav .nav-item.active .nav-link {
-  color: #CC00CC ;
+  color: #fff;
 }
 
 .navbar-nav .nav-item.dropdown .dropdown-toggle::after {
@@ -132,7 +132,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar {
   width: 90px !important;
-  background-color: #FF5511 ;
+  background-color: #FFFFFF;
   min-height: calc(100vh - 56px);
 }
 

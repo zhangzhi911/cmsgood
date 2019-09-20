@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,14 +90,22 @@ public class AtricleController {
 		}
 		
 		//默认文章的基本属性
-		User us = (User) request.getSession().getAttribute("user");
+		//false  从request获取session对象如果没有就是null，如果有就是session
+		
+		HttpSession session = request.getSession(false);
 		art.setHot(0);//文章为非热门
 		art.setStatus(0);//文章为待审核
 		art.setHits(0);//文章点击量默认为0
 		art.setDeleted(0);//文章删除状态0
 		art.setCreated(new Date());//文章发布时间
 		art.setUpdated(new Date());//文章修改时间
-		art.setUserId(us.getId());
+		if(session!=null) {
+			User us=(User) session.getAttribute("user");
+			art.setUserId(us.getId());
+		}else {
+			return false;//没有登录不能发布  
+		}
+		
 		int i = dao.insertSelective(art);
 //		文章内容保存到图片
 		
