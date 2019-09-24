@@ -8,13 +8,12 @@
     <result column="icon" property="icon" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
+  
     id, name, description, icon
   </sql>
-  <select id="selects" resultMap="BaseResultMap">
+  <select id="selects" resultMap="BaseResultMap" >
   	select * from cms_channel
   </select>
-  
-  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangzhi.dao.CommentMapper">
+	<resultMap type="comment" id="commentMap">
+		<id property="id" column="id" />
+	
+		<association property="userid" javaType="user" select="com.zhangzhi.dao.UserMapper.selectByPrimaryKey" column="user_id"> </association>
+		<association property="article" javaType="Article" select="com.zhangzhi.dao.ArticleMapper.selectByPrimaryKey" column="article_id"> </association>
+	</resultMap>
+	
+	<select id="selects"  resultMap="commentMap">
+		select * from comment 
+		<where>
+			<if test="article.id!=null">
+				and  article_id=#{article.id}
+			</if>
+			<if test="userid.id!=null and userid.id!=0">
+				and  user_id=#{userid.id}
+			</if>
+			
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="comment">
+		INSERT INTO `6yuekao`.`comment` (`user_id`, `article_id`, `content`, `created`) VALUES (#{userid.id}, #{article.id}, #{content}, #{created}); 
+	</insert>
+	
+	<update id="upda" parameterType="comment">
+		UPDATE  `comment` SET hits =hits+#{hits} WHERE id=#{id}
+	</update>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,9 @@
  */
 package com.zhangzhi.controller;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -13,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zhangzhi.domain.User;
@@ -48,8 +52,9 @@ public class PassprotController {
 			if(bind.hasErrors()) {
 				return "passport/reg";
 			}
+
 			
-			 dao.insertSelective(userVo);
+			dao.insertSelective(userVo);
 			 red.addFlashAttribute("username", userVo.getUsername());
 			return "redirect:/passport/login";
 		} catch (CMSException e) {

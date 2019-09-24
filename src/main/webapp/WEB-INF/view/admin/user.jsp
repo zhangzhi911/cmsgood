@@ -84,14 +84,14 @@ function dian(){
 	/* $("body").load("/user/selects?name="+a);  */
 }
 function updalo(id,obj){
-	var lo=$(obj).text()=="正常"?1:0;
+	var lo=$(obj).text()=="正常"?0:1;
 	$.post(
 		"user/updalo",{
 			id:id,
 			locked:lo
 		},function(data){
 			if(data){
-				 $(obj).text($(obj).text()=="正常"?"禁用":"正常");
+				 $(obj).text($(obj).text()=="正常"?"禁用":"正常"); 
 				$(obj).attr("class",$(obj).text()=="正常"?"btn btn-warning":"btn btn-success");
 				}else{
 				alert("操作失败");

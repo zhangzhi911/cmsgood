@@ -27,11 +27,11 @@
 			<button type="button" class="btn btn-success" onclick="update(${art.id},1)"  ${art.status==1?"disabled":"" }>通过</button> 
       		<button type="button"  class="btn btn-warning" onclick="update(${art.id},-1)"  ${art.status==-1?"disabled":""}>驳回</button> 
      		 </dd>
-     		 
     		 <dd><hr/></dd>
     	 <dd>${art.content }</dd>
-    
     </dl>
+		
+    	
 	
 	
 	</div>

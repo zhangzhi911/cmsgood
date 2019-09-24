@@ -56,7 +56,7 @@
 					<p align="center">
 						<img src="/resources/images/jing.png" style="width: 120px;height: 120px;" alt="..."
 							class="rounded-circle img-thumbnail" />
-						<img src="/resources/images/duan.png" style="width: 120px;height: 120px;" alt="..."
+						<img src="/resources/images/guest1.jpg" style="width: 120px;height: 120px;" alt="..."
 							class="rounded-circle img-thumbnail" /> &nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 				</div>

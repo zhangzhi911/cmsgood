@@ -10,6 +10,7 @@
 <title>文章列表</title>
 </head>
 <body>
+
 	<div class="form-inline form-group mb-2">
 		&nbsp; 用户名:<input class="form-control" type="text" name="name"
 			placeholder="please enter">
@@ -19,7 +20,7 @@
 				<option value="1">已阅</option>
 				<option value="-1">驳回</option>
 			</select>
-		<button type="button" onclick="dian()" class="btn btn-warning">查询</button>
+		<button type="button" onclick="dian()" class="btn btn-warning">查询${statu}</button>
 	</div>
 	<table class="table table-striped">
 		<tr>
@@ -76,19 +77,30 @@
 </body>
 <script type="text/javascript">
 	 function fen(page){
-		$("#content-wrapper").load("/article/selects?pageNum="+page);
+		 var status='${statu}';
+		$("#content-wrapper").load("/article/selects?pageNum="+page+"&status="+status);
 	} 
+	//复杂查询
 	function dian(){
 		var a=$("[name=name]").val();
 		var status=$("[name=status]").val();
 		
 		$("#content-wrapper").load("/article/selects?title="+a+"&status="+status);
 	}
+	//个人文章打开
 	function myopen(id){
-		
 		var url="/article/select?id="+id;
 		window.open(url,"_blank");
+
+		alert("审核完毕!~");
+		var status='${statu}';
+		var page='${artpage.pageNum}';
+		$("#content-wrapper").load("/article/selects?pageNum="+page+"&status="+status);
 	}
+	//下拉框默认选择
+	$(function(){
+		$("[name='status']").val(${statu});
+	});
 	
 	
 </script>

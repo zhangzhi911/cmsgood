@@ -12,7 +12,13 @@ import com.zhangzhi.domain.Article;
  *2019年9月10日
  */
 public interface ArticleService {
-
+//	上一篇
+	 Article preselectBy(Article article);
+	
+//	 下一篇
+	 Article nextselectBy(Article article);
+	
+	
 //	列出文章列表
 	List<Article> selects(Article article);
 	

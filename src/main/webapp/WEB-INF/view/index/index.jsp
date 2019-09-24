@@ -23,6 +23,7 @@
 		<br>
 	</div>
 
+	
 	<div class="container">
 		<div class="row">
 			<!-- 一行 -->
@@ -57,11 +58,17 @@
 				<c:forEach items="${hotArticles.list}" var="artli">
 					<!--网站搜med  样式  -->
 					<div class="media">
-						<img src="/pic/${artli.picture}" style="width: 190px;height: 124px;" class="mr-3" alt="...">
+						<img src="/pic/ed92b4d0-105d-4109-b7e1-4649518680b4.png" style="width: 190px;height: 124px;" class="mr-3" alt="...">
 						<div class="media-body">
 							<h5 class="mt-0" style="color: red;"><a href="/article/selectsBy?id=${artli.id}" target="_blank"  style="text-decoration: none;">${artli.title}</a></h5>
 							<dd>作者: ${artli.user.nickname}</dd>
-							<dd>日期: <fmt:formatDate value="${artli.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </dd>
+							<dd>日期: <fmt:formatDate value="${artli.updated}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								
+								<span style="color: red;float: right;font-size: 24px;" onclick="wenhits(${artli.id})" >${artli.hits}
+		   	 				<img alt="" src="/resources/img/ico/png/thumb-up-2x.png" style="cursor: pointer;" >
+								</span>
+								<!-- 点赞的~ -->
+							   </dd>
 						</div>
 					</div>
 					<hr/>
@@ -72,7 +79,7 @@
 		<c:if test="${article.channelId!=null}">
 				<!-- 分类 -->
 				<ul class="nav nav-pills">
-				 <li class="nav-item" id="cate" > <a class="nav-link" href="index?channelId=${article.channelId}">全部</a></li>
+				 <li class="nav-item" id="cate" > <a class="nav-link" href="index?channelId=${article.channelId}" >全部</a></li>
 					<c:forEach items="${categorys}" var="cali">
 					  <li class="nav-item" id="cate${cali.id}" >
 					    <a class="nav-link" href="index?channelId=${article.channelId}&categoryId=${cali.id}">${cali.name}</a>
@@ -89,7 +96,11 @@
 						<div class="media-body">
 							<h5 class="mt-0" style="color: red;"><a  href="/article/selectsBy?id=${artli.id}" target="_blank" style="text-decoration: none;"> ${artli.title} </a> </h5>
 							<dd>作者: ${artli.user.nickname}</dd>
-							<dd>日期: <fmt:formatDate value="${artli.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </dd>
+							<dd>日期: <fmt:formatDate value="${artli.updated}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<span style="color: red;float: right;font-size: 24px;" onclick="wenhits(${artli.id})" >${artli.hits}
+			   	 					<img alt="" src="/resources/img/ico/png/thumb-up-2x.png" style="cursor: pointer;" >
+								</span><!-- 分类中的点赞 -->
+							 </dd>
 						</div>
 					</div>
 					<hr/>
@@ -106,7 +117,7 @@
 				<div class="card" style="width: 18rem;">
 				  <div class="card-body">
 				    <h3 class="card-title">最新文章</h3>
-				    <c:forEach items="${hotArticles.list}" var="artli">
+				    <c:forEach items="${newart}" var="artli">
 						<!--网站搜med  样式  -->
 						<h6> <a  href="/article/selectsBy?id=${artli.id}" target="_blank"  style="text-decoration: none;"> ${artli.title} </a> </h6> 
 						<p>作者: ${artli.user.nickname}</p>
@@ -142,12 +153,25 @@
 		$("#channel${article.channelId}").addClass('list-group-item-warning');
 	
 		$("#cate${article.categoryId}").addClass('list-group-item-warning');
-	
-	
-	
-	
-	});
-	 
+ 	});
+	//文章点赞
+	function wenhits(id){
+		var page='${hotArticles.pageNum}';
+		var chan='${article.channelId}';
+		var cat='${article.categoryId}';
+		$.post(
+				"/article/updateArt",{
+					id:id
+				},function(data){
+					if(data){
+						$("body").load("/index?pageNum="+page+"&channelId="+chan+"&categoryId="+cat);
+					}else{
+						alert("请重新登录~");
+						location.href="/passport/login";
+					}
+				}
+			); 
+	}
 	</script>
 </body>
 </html>

@@ -24,7 +24,7 @@
 			<!-- 后台管理系统 -->
 				<jsp:include page="left.jsp" />
 			<div id="content-wrapper" >
-			 	<div style="background-image:url('/resources/img/lun/car1.png');width: 100%;height: 100%; align="center" ></div>
+			   <!-- 	<div style="background-image:url('/resources/img/lun/car1.png');width: 100%;height: 100%; align="center" ></div> -->
 			</div>
 		</div>
 </body>

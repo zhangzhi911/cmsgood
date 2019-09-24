@@ -27,6 +27,8 @@ public class CategoryServiceimpTest extends JunitParent {
 	
 	@Resource
 	CategoryService dao;
+	
+	
 	@Test
 	public void testSelectsBy() {
 		List<Category> list = dao.selectsBy(1);

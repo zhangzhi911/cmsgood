@@ -49,5 +49,17 @@ public class ArticleServiceImp implements ArticleService {
 		return dao.updateByPrimaryKeySelective(record);
 	}
 
+	@Override
+	public Article preselectBy(Article article) {
+		// TODO Auto-generated method stub
+		return dao.preselectBy(article);
+	}
+
+	@Override
+	public Article nextselectBy(Article article) {
+		// TODO Auto-generated method stub
+		return dao.nextselectBy(article);
+	}
+
 
 }

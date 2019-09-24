@@ -11,6 +11,12 @@
 <body>
 
 	<div class="container">
+	<!-- 搜索 -->
+	<div class="form-inline">
+		<input type="text" name="title" class="form-control" placeholder="please enter" value="${bytitle}"> &nbsp;&nbsp;&nbsp;
+		<button class="btn btn-info" onclick="query()">搜索</button>
+	</div>
+	<hr/>
 		<ul class="list-unstyled">
 			<c:forEach items="${artpageBy.list}" var="li">
 				<li class="media from-group" >
@@ -19,12 +25,23 @@
 						<h4 class="mt-0 mb-1">标题:<a href="javascript:myopen(${li.id})"> ${li.title}</a> </h4>
 						<h5 class="mt-0 mv-1">作者:${li.user.nickname}&nbsp; 发布时间: <fmt:formatDate value="${li.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </h5>
 					</div>
-				<hr>
+				<div style="float: right;">
+					<button class="btn btn-success" onclick="toUpdate(${li.id})">修改</button>
+					
+					<c:if test="${li.deleted==1}">
+						<button class="btn btn-warning" onclick="upda(${li.id},0)">删除</button>
+					</c:if>
+					<c:if test="${li.deleted==0}">
+						<button class="btn btn-sccess" onclick="upda(${li.id},1)">恢复</button>
+					</c:if>
+					
+				</div>
 				</li>
+				<hr>
 			</c:forEach>
 		</ul>
 	</div>
-
+<!--分页 -->
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
 			<c:if test="${artpageBy.total>0}">
@@ -54,15 +71,47 @@
 	
 </body>
 <script type="text/javascript">
-	 function fen(page){
-		$("#center").load("/article/selectsByUser?pageNum="+page);
+	//去修改
+	function toUpdate(id){
+		$("#center").load("/article/update?id="+id);
+	}
+	
+	//搜索
+	function query(){
+		$("#center").load("/article/selectsByUser?title="+$("[name=title]").val());
+	}
+
+	 //分页的东西
+	 function fen(page){ 
+		var title='${bytitle}';
+		 $("#center").load("/article/selectsByUser?pageNum="+page+"&title="+title);
 	} 
+	 //打开选择的文章
 	function myopen(id){
 		
 		var url="/article/selectsBy?id="+id;
 		window.open(url,"_blank");
 	}
-	
+	function upda(id,de){
+		$.post(
+			"/article/upda",{
+			id:id,
+			deleted:de
+			},function(data){
+				if(data){
+					if(de==1){
+						alert("恢复成功");
+					}else{
+						alert("删除成功");
+					}
+					$("#center").load("/article/selectsByUser");
+				}
+			}
+		);
+		
+		
+	}
+
 	
 </script>
 </html>

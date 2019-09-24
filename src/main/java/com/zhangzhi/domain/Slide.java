@@ -51,6 +51,11 @@ public class Slide implements Serializable{
     }
 
 	@Override
+	public String toString() {
+		return "Slide [id=" + id + ", title=" + title + ", picture=" + picture + ", url=" + url + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

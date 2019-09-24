@@ -90,6 +90,8 @@ public class UserServiceimp implements UserService {
 			throw new CMSException("用户名不存在!");
 		}else if(!us.getPassword().equals(Md5Util.md5Encoding(user.getPassword()))){
 			throw new CMSException("密码不正确!");
+		}else if(us.getLocked()==1) {
+			throw new CMSException("账号状态异常，请联系管理员!");
 		}
 		
 		return us;

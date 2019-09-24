@@ -8,8 +8,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
  <typeAliases>
    <package name="com.zhangzhi.domain"/>
  </typeAliases>
- 
- 
  <!-- 配置分页助手拦截器 -->
 <plugins>
  <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>

@@ -55,7 +55,7 @@
 								aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" href="/my/">个人主页</a> <a
 									class="dropdown-item" href="#">个人设置</a> <a
-									class="dropdown-item" href="#">我的文章</a>
+									class="dropdown-item" href="/my">我的文章</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="/passport/logout">退出</a>
 							</div>

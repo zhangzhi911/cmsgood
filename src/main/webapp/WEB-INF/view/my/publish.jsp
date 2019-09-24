@@ -86,7 +86,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			success:function(flag){
 				if(flag){
 					alert("发布成功");
-					history.go();
+					$("#center").load("/article/selectsByUser");
 				}
 			}
 		});
@@ -99,24 +99,31 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			for (var i = 0; i < data.length; i++) {
 				$("#channel").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
 			}
-		}
+			if($("#channel").val()!=null){
+				getcategory($("#channel").val());
+			}
+	 	}
 		); 
+	 	
+	 	
 	 	$("#channel").change(function(){
 	 		var id=$(this).val();
 	 		$("#category").empty();
-		 $.get(
-			"/category/selecs",{
-				cid:id
-			},
-			function(data){
-				for (var i = 0; i < data.length; i++) {
-					$("#category").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
-				}
-			}
-		);  
+	 		getcategory(id);
 	 	});
-	 	
-	 	
+	 	//分类的函数
+	 	function getcategory(id){
+	 		 $.get(
+	 				"/category/selecs",{
+	 					cid:id
+	 				},
+	 				function(data){
+	 					for (var i = 0; i < data.length; i++) {
+	 						$("#category").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
+	 					}
+	 				}
+	 			);  
+	 	}
 
 </script>
 

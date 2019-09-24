@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="admin">
+    <a class="navbar-brand mr-1" href="index">
  	<img alt="报错了" src="/resources/img/锦贤头条.png" style="width: 200px;height: 80px;">
 
     </a>

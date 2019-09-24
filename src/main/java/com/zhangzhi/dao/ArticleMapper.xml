@@ -5,6 +5,7 @@
 		type="com.zhangzhi.domain.Article">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="summary" property="summary" jdbcType="VARCHAR" />
 		<result column="picture" property="picture" jdbcType="VARCHAR" />
 		<result column="channel_id" property="channelId"
 			jdbcType="INTEGER" />
@@ -37,6 +38,7 @@
 	<sql id="Blob_Column_List">
 		content
 	</sql>
+	<!-- 查询单条数据 -->
 	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
 		parameterType="java.lang.Integer">
 		select
@@ -64,6 +66,9 @@
 			<if test="status != null">
 				and status=#{status}
 			</if>
+			<if test=" deleted!= null">
+				and deleted=#{deleted}
+			</if>
 			<if test="hot != null">
 				and hot=#{hot}
 			</if>
@@ -75,6 +80,23 @@
 		</where>
 		order by updated desc
 	</select>
+	
+	<!-- 查询上一条 -->
+	<select id="preselectBy" resultMap="BaseResultMap">
+	select * from cms_article a	where a.id = (
+	SELECT id FROM `cms_article` b WHERE b.`channel_id`=#{channelId} AND b.id &gt; #{id}  AND deleted=1 AND STATUS=1  ORDER BY `created` ASC LIMIT 1
+	)
+	</select>	
+	
+	
+	<!-- 查询下一条 -->
+	<select id="nextselectBy" resultMap="BaseResultMap">
+	select * from cms_article a	where a.id = (
+	SELECT id FROM `cms_article` b WHERE b.`channel_id`=#{channelId} AND b.id &lt; #{id} AND deleted=1 AND STATUS=1  ORDER BY created DESC LIMIT 1
+	)
+	</select>
+	
+
 
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
@@ -107,8 +129,8 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="title != null">
-				title,
+			<if test="summary != null">
+				summary,
 			</if>
 			<if test="picture != null">
 				picture,
@@ -143,13 +165,17 @@
 			<if test="content != null">
 				content,
 			</if>
+				<if test="title != null">
+				title,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="title != null">
-				#{title,jdbcType=VARCHAR},
+			
+			<if test="summary != null">
+				#{summary,jdbcType=VARCHAR},
 			</if>
 			<if test="picture != null">
 				#{picture,jdbcType=VARCHAR},
@@ -184,6 +210,9 @@
 			<if test="content != null">
 				#{content,jdbcType=LONGVARCHAR},
 			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective"
@@ -206,7 +235,7 @@
 				user_id = #{userId,jdbcType=INTEGER},
 			</if>
 			<if test="hits != null">
-				hits = #{hits,jdbcType=INTEGER},
+				hits = hits+#{hits,jdbcType=INTEGER},
 			</if>
 			<if test="hot != null">
 				hot = #{hot,jdbcType=INTEGER},

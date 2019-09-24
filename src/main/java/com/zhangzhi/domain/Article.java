@@ -14,7 +14,9 @@ public class Article implements Serializable {
 	private Integer id;
 
     private String title;
-
+    
+    private String summary;//摘要
+    
     private String picture;
 
     private Integer channelId;
@@ -41,15 +43,24 @@ public class Article implements Serializable {
     
    
 
+    public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+    
     @Override
 	public String toString() {
-		return "Article [id=" + id + ", title=" + title + ", picture=" + picture + ", channelId=" + channelId
-				+ ", categoryId=" + categoryId + ", userId=" + userId + ", hits=" + hits + ", hot=" + hot + ", status="
-				+ status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", content="
-				+ content + "]";
+		return "Article [id=" + id + ", title=" + title + ", summary=" + summary + ", picture=" + picture
+				+ ", channelId=" + channelId + ", categoryId=" + categoryId + ", userId=" + userId + ", hits=" + hits
+				+ ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created + ", updated="
+				+ updated + ", content=" + content + ", user=" + user + "]";
 	}
-    
-    public User getUser() {
+
+	public User getUser() {
 		return user;
 	}
 

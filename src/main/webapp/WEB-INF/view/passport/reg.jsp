@@ -62,7 +62,7 @@
 							   <input type="radio" value="1" class="form-control" name="gender" id="gender" >女
 							</div>
 
-							<button type="submit" class="btn btn-info">登录</button>
+							<button type="submit" class="btn btn-info">注册</button>
 							<button type="reset" class="btn btn-warning">重置</button>
 							
 						</form>

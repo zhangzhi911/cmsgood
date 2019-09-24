@@ -18,9 +18,11 @@ import com.github.pagehelper.PageInfo;
 import com.zhangzhi.domain.Article;
 import com.zhangzhi.domain.Category;
 import com.zhangzhi.domain.Channel;
+import com.zhangzhi.domain.Slide;
 import com.zhangzhi.service.ArticleService;
 import com.zhangzhi.service.CategoryService;
 import com.zhangzhi.service.ChannelService;
+import com.zhangzhi.service.SlideService;
 
 /**
  * @author zhangzhi
@@ -39,10 +41,14 @@ public class IndexController {
 	@Resource
 	private CategoryService cadao;
 	
+	@Resource
+	private SlideService daosli;
+	
 	@GetMapping(value = "") //第一次进来的地方
 	public String index(Model model,Article art,@RequestParam(value = "pageNum", defaultValue = "1") String num) {
 //		查询审核过的文章
 		art.setStatus(1);
+		art.setDeleted(1);
 		//查询所有栏目
 		List<Channel> list = dao.selects();
 		model.addAttribute("channels", list);
@@ -67,6 +73,18 @@ public class IndexController {
 			model.addAttribute("hotArticles", artpage);
 		}
 		
+//		最新文章
+		PageHelper.startPage(1, 10);
+		Article newa = new Article();
+		newa.setStatus(1);
+		newa.setDeleted(1);
+		List<Article> newart = artdao.selects(newa);
+		model.addAttribute("newart", newart);
+		
+//		广告
+		List<Slide> slides = daosli.selects();
+		System.out.println(slides);
+		model.addAttribute("slides", slides);
 		
 		model.addAttribute("article", art); //把对象传过去 拿着art的栏目id去js中整
 		
