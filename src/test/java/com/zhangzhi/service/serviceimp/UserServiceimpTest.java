@@ -14,10 +14,10 @@ import javax.annotation.Resource;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-import com.zhangzhi.domain.Article;
-import com.zhangzhi.domain.Comment;
-import com.zhangzhi.domain.User;
-import com.zhangzhi.service.CommentService;
+import com.zhangzhi.cms.domain.Article;
+import com.zhangzhi.cms.domain.Comment;
+import com.zhangzhi.cms.domain.User;
+import com.zhangzhi.cms.service.CommentService;
 
 /**
  * @author zhangzhi
@@ -65,7 +65,7 @@ public class UserServiceimpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.UserServiceimp#selectByPrimaryKey(java.lang.Integer)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.UserServiceimp#selectByPrimaryKey(java.lang.Integer)}.
 	 */
 	@Test
 	public void testSelectByPrimaryKey() {
@@ -73,7 +73,7 @@ public class UserServiceimpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.UserServiceimp#updateByPrimaryKeySelective(com.zhangzhi.domain.User)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.UserServiceimp#updateByPrimaryKeySelective(com.zhangzhi.cms.domain.User)}.
 	 */
 	@Test
 	public void testUpdateByPrimaryKeySelective() {
@@ -81,7 +81,7 @@ public class UserServiceimpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.UserServiceimp#updalo(com.zhangzhi.domain.User)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.UserServiceimp#updalo(com.zhangzhi.cms.domain.User)}.
 	 */
 	@Test
 	public void testUpdalo() {
@@ -89,7 +89,7 @@ public class UserServiceimpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.UserServiceimp#selectByUsername(java.lang.String)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.UserServiceimp#selectByUsername(java.lang.String)}.
 	 */
 	@Test
 	public void testSelectByUsername() {
@@ -97,7 +97,7 @@ public class UserServiceimpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.UserServiceimp#dogin(com.zhangzhi.domain.User)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.UserServiceimp#dogin(com.zhangzhi.cms.domain.User)}.
 	 */
 	@Test
 	public void testDogin() {

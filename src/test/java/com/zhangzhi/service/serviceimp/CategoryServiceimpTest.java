@@ -11,10 +11,10 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.zhangzhi.domain.Category;
-import com.zhangzhi.domain.Channel;
-import com.zhangzhi.service.CategoryService;
-import com.zhangzhi.service.ChannelService;
+import com.zhangzhi.cms.domain.Category;
+import com.zhangzhi.cms.domain.Channel;
+import com.zhangzhi.cms.service.CategoryService;
+import com.zhangzhi.cms.service.ChannelService;
 
 /**
  * @author zhangzhi

@@ -17,9 +17,16 @@
 <script type="text/javascript" src="/resources/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
+	<div class="container">
+	
 <button class="btn btn-success" onclick="pre()">上一篇</button>
 <button class="btn btn-success" onclick="next()">下一篇</button>
+	</div>
 	<div class="container">
+	<!-- 让他在一行 -->
+	<div class="row">
+	<div class="col-md-9">
+	
 		<dl>
 			<dt><h1 align="center">${art.title}</h1> </dt>
 			<dd>作者:${art.user.nickname}  &nbsp; &nbsp;
@@ -31,6 +38,36 @@
     		 <dd><hr/></dd>
     		 <dd>${art.content }</dd>
    		 </dl>
+   	</div>
+   	<!-- 右侧的排行榜 -->
+   	<div class="col-md-3" >
+   		<div class="card" style="width: 18rem;">
+			  <div class="card-body">
+				   <h3 class="card-title">评论排行榜</h3>
+				    <c:forEach items="${artcoms}" var="li">
+    	 			
+    	 			<a  href="/article/selectsBy?id=${li.id}" target="_blank"  style="text-decoration: none;"> ${li.title} </a> 
+    	 			${li.comments}  &nbsp;&nbsp; <br/>
+    	 			
+    	 			</c:forEach>
+				
+			  </div>
+			  
+			  <div class="card-body" >
+				   <h3 class="card-title">点击率排行榜</h3>
+				    <c:forEach items="${arthits}" var="li" varStatus="1" >
+    	 			 
+    	 				 <a  href="/article/selectsBy?id=${li.id}" target="_blank"  style="text-decoration: none;"> ${li.title} </a> 
+    	 				&nbsp;&nbsp; <br/>
+    	 			
+    	 			</c:forEach>
+				
+			  </div>
+		</div>
+   	</div>
+   	
+   	</div>	<!-- 让他在一行 -->
+   	
    		 <!-- 以下是评论 -->
    	<c:if test="${sessionScope.user!=null}">
  
@@ -55,9 +92,9 @@
     	 	<c:forEach items="${coments}" var="li">
     	 		<dt>${li.userid.username} &nbsp;&nbsp; 
     	 			<fmt:formatDate  value="${li.created}" pattern="yyyy-MM-dd HH-mm-ss"/>
-    	 			<p style="display: inline-block;float: right;.text-decoration-none;cursor: pointer;" onclick="dian(${li.id})">${li.hits}
+    	 			<%-- <p style="display: inline-block;float: right;.text-decoration-none;cursor: pointer;" onclick="dian(${li.id})">${li.hits}
     	 				<img alt="" src="/resources/img/ico/png/thumb-up-2x.png" >
-    	 			</p>
+    	 			</p> --%>
     	 		</dt>
     	 		
     	 		<dd >${li.content}</dd>
@@ -68,6 +105,9 @@
 	
 	
 	</div>
+
+
+
 </body>
 
 <script type="text/javascript">

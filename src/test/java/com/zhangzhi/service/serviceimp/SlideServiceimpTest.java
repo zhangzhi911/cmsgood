@@ -11,8 +11,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.zhangzhi.domain.Slide;
-import com.zhangzhi.service.SlideService;
+import com.zhangzhi.cms.domain.Slide;
+import com.zhangzhi.cms.service.SlideService;
 
 /**
  * @author zhangzhi

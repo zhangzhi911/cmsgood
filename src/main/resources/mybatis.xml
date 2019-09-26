@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <!-- 别名配置 -->
  <typeAliases>
-   <package name="com.zhangzhi.domain"/>
+   <package name="com.zhangzhi.cms.domain"/>
  </typeAliases>
  <!-- 配置分页助手拦截器 -->
 <plugins>

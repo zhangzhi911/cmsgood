@@ -23,7 +23,7 @@
 					<img alt="无图" src="/pic/${li.picture}" class="mr-3" style="width: 120px;height:80px; ">                                      
 					<div class="media-body">
 						<h4 class="mt-0 mb-1">标题:<a href="javascript:myopen(${li.id})"> ${li.title}</a> </h4>
-						<h5 class="mt-0 mv-1">作者:${li.user.nickname}&nbsp; 发布时间: <fmt:formatDate value="${li.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </h5>
+						<h5 class="mt-0 mv-1">作者:${li.user.nickname}&nbsp; 发布时间: <fmt:formatDate value="${li.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </h5>
 					</div>
 				<div style="float: right;">
 					<button class="btn btn-success" onclick="toUpdate(${li.id})">修改</button>

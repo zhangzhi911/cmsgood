@@ -18,18 +18,18 @@ import javax.annotation.Resource;
 import org.apache.log4j.lf5.util.StreamUtils;
 import org.junit.Test;
 
-import com.zhangzhi.dao.ArticleMapper;
-import com.zhangzhi.domain.Article;
-import com.zhangzhi.domain.Category;
-import com.zhangzhi.domain.Comment;
-import com.zhangzhi.domain.User;
+import com.zhangzhi.cms.dao.ArticleMapper;
+import com.zhangzhi.cms.domain.Article;
+import com.zhangzhi.cms.domain.Category;
+import com.zhangzhi.cms.domain.Comment;
+import com.zhangzhi.cms.domain.User;
+import com.zhangzhi.cms.service.CategoryService;
+import com.zhangzhi.cms.service.ChannelService;
+import com.zhangzhi.cms.service.CommentService;
+import com.zhangzhi.cms.service.UserService;
 import com.zhangzhi.myUtil.DateUtil;
 import com.zhangzhi.myUtil.RandomUtil;
 import com.zhangzhi.myUtil.StreamUtil;
-import com.zhangzhi.service.CategoryService;
-import com.zhangzhi.service.ChannelService;
-import com.zhangzhi.service.CommentService;
-import com.zhangzhi.service.UserService;
 
 /**
  * @author zhangzhi
@@ -59,7 +59,7 @@ public class ArticleServiceImpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.ArticleServiceImp#deleteByPrimaryKey(java.lang.Integer)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.ArticleServiceImp#deleteByPrimaryKey(java.lang.Integer)}.
 	 */
 	@Test
 	public void testDeleteByPrimaryKey() {
@@ -71,7 +71,7 @@ public class ArticleServiceImpTest extends JunitParent{
 	}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.ArticleServiceImp#insertSelective(com.zhangzhi.domain.Article)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.ArticleServiceImp#insertSelective(com.zhangzhi.cms.domain.Article)}.
 	 */
 	@Test
 	public void testInsertSelective() {
@@ -85,7 +85,7 @@ public class ArticleServiceImpTest extends JunitParent{
 		}
 
 	/**
-	 * Test method for {@link com.zhangzhi.service.serviceimp.ArticleServiceImp#selectByPrimaryKey(java.lang.Integer)}.
+	 * Test method for {@link com.zhangzhi.cms.service.serviceimp.ArticleServiceImp#selectByPrimaryKey(java.lang.Integer)}.
 	 * @throws ParseException 
 	 */
 	@Test
@@ -116,7 +116,7 @@ public class ArticleServiceImpTest extends JunitParent{
 	
 	@Test
 	public void testFile() {
-		File files = new File("E:\\aa\\abcd\\daoru");
+		File files = new File("E:\\aa\\dao");
 		File[] fi = files.listFiles();
 		for (File file : fi) {
 			Article art = new Article();
@@ -129,24 +129,18 @@ public class ArticleServiceImpTest extends JunitParent{
 			
 			art.setSummary(con.substring(0,140));//摘要
 			
-			int cid = RandomUtil.random(1, 9);//栏目
-			art.setChannelId(cid);
-			
-			List<Category> cates = daocate.selectsBy(cid);//分类
-			Category cate = cates.get(RandomUtil.random(0, cates.size()-1));
-			art.setCategoryId(cate.getId());
 			
 			Calendar c = Calendar.getInstance();
 			c.set(2019, 0, 1, 0, 0, 0);
 			Date date = DateUtil.randomDate(c.getTime(), new Date());
-			art.setCreated(date);//创建日期
+			art.setCreated(new Date());//创建日期
 			art.setUpdated(date);
 			
 			art.setHot(RandomUtil.random(0, 1));//是否人
 			art.setHits(RandomUtil.random(0, 100000));//点击量
 			art.setStatus(1);//已审核
 			art.setDeleted(1);//未删除
-			art.setUserId(130);
+			art.setUserId(125);
 			
 			daoar.insertSelective(art);
 		}
@@ -174,6 +168,82 @@ public class ArticleServiceImpTest extends JunitParent{
 		System.out.println(art.getId());
 	}
 	
-	
+	@Test
+	public void testmyfile() {
+		File file = new File("E:\\aa\\dao");
+		File[] lists = file.listFiles();
+		for (File fi : lists) {
+			Article art = new Article();
+			
+			art.setTitle(fi.getName());
 
+			String str = StreamUtil.readTextFile(fi);
+			art.setContent(str);
+			
+			art.setHot(1);
+			art.setStatus(1);
+			art.setDeleted(1);
+			art.setCreated(new Date());
+			art.setUpdated(new Date());
+			daoar.insertSelective(art);
+		}
+		
+		
+		
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+//	测试点击率
+	@Test
+	public void selecthist() {
+		
+		List<Article> list = daoar.selecthits(null);
+		for (Article article : list) {
+			System.out.println(article.getHits());
+		}
+	}
+	
+//	测试点击率
+	@Test
+	public void selectcoms() {
+		
+		List<Article> list = daoar.selectcoms(null);
+		for (Article article : list) {
+			System.out.println(article.getComments());
+		}
+	}
+	
+//	测试文章评论加一
+	@Test
+	public void selectadd() {
+		
+		Article art = new Article();
+		art.setId(11);
+		art.setComments(1); //默认一次只加一条评论
+		daoar.updateByPrimaryKeySelective(art);//给文章的评论加一
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
