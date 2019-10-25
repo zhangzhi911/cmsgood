@@ -9,7 +9,7 @@
 
 	<!-- 定义主要版本号 -->
 	<properties>
-		<spring.version>4.3.13.RELEASE</spring.version>
+		<spring.version>5.1.2.RELEASE</spring.version>
 		<mybatis.version>3.4.2</mybatis.version>
 		<log4j.version>1.2.17</log4j.version>
 		<log4japi.version>1.7.26</log4japi.version>
@@ -17,7 +17,7 @@
 		<mysql.version>5.1.6</mysql.version>
 		<mybatis.spring.version>1.3.0</mybatis.spring.version>
 		<jackson.version>2.9.1</jackson.version>
-		<validator.version>4.3.0.Final</validator.version>
+		<validator.version>5.1.0.Final</validator.version>
 		<poi.version>3.9</poi.version>
 		<jstl.version>1.2</jstl.version>
 		<servlet-api.version>2.5</servlet-api.version>
@@ -34,12 +34,101 @@
 	</properties>
 	<!-- jar依赖 -->
 	<dependencies>
-		<!-- spring 及springMVC -->
 		<dependency>
-		<groupId>com.zhangzhi</groupId>
-  		<artifactId>zhangzhi-commt</artifactId>
- 	    <version>0.0.1-SNAPSHOT</version>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		<!-- lucene 和es的包,缺一不可 jar依赖 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>6.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.janeluo</groupId>
+			<artifactId>ikanalyzer</artifactId>
+			<version>2012_u6</version>
+			<!-- 排除自带的lucene操作 -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.lucene</groupId>
+					<artifactId>lucene-queries</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.lucene</groupId>
+					<artifactId>lucene-queryparser</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- redis依赖 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.8.7.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- kafka配置 -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>2.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.10</artifactId>
+			<version>0.8.2.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jmxri</artifactId>
+					<groupId>com.sun.jmx</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jms</artifactId>
+					<groupId>javax.jms</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jmxtools</artifactId>
+					<groupId>com.sun.jdmk</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>5.6.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>transport</artifactId>
+			<version>5.6.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<!-- spring 及springMVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -60,11 +149,28 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -105,14 +211,17 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-	
-
 		<!-- 日志文件管理包 -->
 		<!-- log start -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -124,7 +233,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${log4japi.version}</version>
 		</dependency>
-
 		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -167,11 +275,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-		</dependency>
-		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
@@ -187,7 +290,6 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -215,11 +317,23 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- log4j2 -->
+		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-core</artifactId> 
+			<version>2.5</version> </dependency> <dependency> <groupId>org.apache.logging.log4j</groupId> 
+			<artifactId>log4j-api</artifactId> <version>2.5</version> </dependency> -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.zhangzhi</groupId>
+			<artifactId>zhangzhi-commt2</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -250,10 +364,12 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.7.v20160115</version>
+				<version>9.4.9.v20180320</version>
 				<configuration>
 					<httpConnector>
+						<!-- 端口号 -->
 						<port>80</port>
+						<!-- 项目访问路径 -->
 						<host>localhost</host>
 					</httpConnector>
 					<contextHandlers>

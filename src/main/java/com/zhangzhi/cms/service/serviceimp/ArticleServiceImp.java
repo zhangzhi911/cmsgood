@@ -35,8 +35,10 @@ public class ArticleServiceImp implements ArticleService {
 
 
 	public int insertSelective(Article record) {
-		// TODO Auto-generated method stub
-		return dao.insertSelective(record);
+		
+		int i = dao.insertSelective(record);
+		i=record.getId();//获取id
+		return i;
 	}
 
 	public Article selectByPrimaryKey(Integer id) {

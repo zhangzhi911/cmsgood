@@ -17,13 +17,16 @@
 <title>CMS系统</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/view/common/top.jsp"></jsp:include>
 
+	<jsp:include page="/WEB-INF/view/common/top.jsp"></jsp:include>
 	<div>
 		<br>
 	</div>
-
-	
+	<!-- <a target="_blank" href="tencent://message/?uin=2937536078&Site=sc.chinaz.com&Menu=yes">
+ <img src="/resources/img/ico/png/flag-8x.png" align="absmiddle" style="float:left">
+ <span style="padding-left:10px;">精神领袖大哥</span></a> -->
+ 
+ 
 	<div class="container">
 		<div class="row">
 			<!-- 一行 -->
@@ -33,13 +36,13 @@
 				<ul class="list-group">
 					<!-- 列表组 ul -->
 					<li class="list-group-item text-center" id="channel"><a
-						style="font-size: 35px;" class="channel" href="index">热门</a></li>
+						style="font-size: 35px;" class="channel" href="/">热门</a></li>
 					<!-- 第一个热门是写死的 -->
 
 					<c:forEach items="${channels}" var="cli">
 						<li class="list-group-item text-center" id="channel${cli.id}">
 							<a style="font-size: 35px;" class="channel"
-							href="index?channelId=${cli.id}">${cli.name}</a>
+							href="/?channelId=${cli.id}">${cli.name}</a>
 						</li>
 					</c:forEach>
 				</ul>
@@ -136,10 +139,12 @@
 	<script type="text/javascript">
 	
 	 function fen(page){
+		 	var key='${key}';
 			var chan='${article.channelId}';
 			var cat='${article.categoryId}';
 			//一定要加 ‘’  自动给他加空  要不然会出错
-			location.href="/index?pageNum="+page+"&channelId="+chan+"&categoryId="+cat;
+		//	location.href="/index?pageNum="+page+"&channelId="+chan+"&categoryId="+cat; 
+			location.href="${pageContext.request.contextPath}?pageNum="+page+"&channelId="+chan+"&categoryId="+cat+"&key="+key; 
 	 } 
 	 //用art中的栏目id去整
 	 //点击左侧栏目的时候会传值去controller给channelId赋值
@@ -159,12 +164,15 @@
 		var page='${hotArticles.pageNum}';
 		var chan='${article.channelId}';
 		var cat='${article.categoryId}';
+		var key='${key}';
 		$.post(
 				"/article/updateArt",{
 					id:id
 				},function(data){
 					if(data){
-						$("body").load("/index?pageNum="+page+"&channelId="+chan+"&categoryId="+cat);
+						/* $("body").load("/index?pageNum="+page+"&channelId="+chan+"&categoryId="+cat); */
+						$("body").load("${pageContext.request.contextPath}?pageNum="+page+"&channelId="+chan+"&categoryId="+cat+"&key="+key);
+						
 					}else{
 						alert("请重新登录~");
 						location.href="/passport/login";

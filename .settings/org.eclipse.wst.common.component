@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="zhangzhi-commt-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zhangzhi-commt/zhangzhi-commt">
+        <dependent-module archiveName="zhangzhi-commt2-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zhangzhi-commt2/zhangzhi-commt2">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/zhangzhi-CMSs/target/classes"/>

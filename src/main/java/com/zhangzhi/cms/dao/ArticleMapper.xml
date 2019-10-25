@@ -136,6 +136,9 @@
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.zhangzhi.cms.domain.Article">
+		<selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="Integer">
+				SELECT LAST_INSERT_ID();		
+		</selectKey>
 		insert into cms_article
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -268,7 +271,10 @@
 				content = #{content,jdbcType=LONGVARCHAR},
 			</if>
 			<if test="comments != null">
-				comments = comments+#{comments,jdbcType=INTEGER}
+				comments = comments+#{comments,jdbcType=INTEGER},
+			</if>
+			<if test="pageview != null">
+				pageview =pageview+#{pageview,jdbcType=INTEGER},
 			</if>
 			
 		</set>

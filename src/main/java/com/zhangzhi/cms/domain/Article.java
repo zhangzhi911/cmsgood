@@ -2,17 +2,24 @@ package com.zhangzhi.cms.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 /*
  * 文章的类
  */
+@Document(indexName="cmsart",type="articlecms")
 public class Article implements Serializable {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 5292559693838798376L;
-
+	@Id
 	private Integer id;
-
+	@Field(index=true,analyzer="ik_smart",store=true,searchAnalyzer="ik_smart",type = FieldType.text)
     private String title;
     
     private String summary;//摘要
@@ -33,17 +40,28 @@ public class Article implements Serializable {
 
     private Integer deleted;
 
+    private int pageview;//浏览量
+    
     private Date created;
 
     private Date updated;
-
+    
+    @Field(index=true,analyzer="ik_smart",store=true,searchAnalyzer="ik_smart",type = FieldType.text)
     private String content;
     
     private User user;
     
     private int comments;
 
-    public String getSummary() {
+    public int getPageview() {
+		return pageview;
+	}
+
+	public void setPageview(int pageview) {
+		this.pageview = pageview;
+	}
+
+	public String getSummary() {
 		return summary;
 	}
 
@@ -60,12 +78,14 @@ public class Article implements Serializable {
 		this.comments = comments;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", summary=" + summary + ", picture=" + picture
 				+ ", channelId=" + channelId + ", categoryId=" + categoryId + ", userId=" + userId + ", hits=" + hits
-				+ ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created + ", updated="
-				+ updated + ", content=" + content + ", user=" + user + "]";
+				+ ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", pageview=" + pageview
+				+ ", created=" + created + ", updated=" + updated + ", content=" + content + ", user=" + user
+				+ ", comments=" + comments + "]";
 	}
 
 	public User getUser() {

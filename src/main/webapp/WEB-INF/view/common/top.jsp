@@ -24,9 +24,9 @@
 			src="/resources/img/锦贤头条.png" style="width: 200px;height: 80px;"> </a>
 
 		<!-- 搜索框：在专业高级二学完ElasticSearch后实现 -->
-		<form class="form-inline">
+		<form class="form-inline" action="${pageContext.request.contextPath}/article/search" method="get">
 			<div class="input-group">
-				<input type="text" name="key" class="form-control"
+				<input type="text" name="key" value="${key}" class="form-control"
 					placeholder="输入关键字..." aria-label="key"
 					aria-describedby="basic-addon1">
 				<div class="input-group-prepend">

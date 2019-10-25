@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,12 +18,17 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.lf5.util.StreamUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 
+import com.alibaba.fastjson.JSON;
 import com.zhangzhi.cms.dao.ArticleMapper;
 import com.zhangzhi.cms.domain.Article;
 import com.zhangzhi.cms.domain.Category;
 import com.zhangzhi.cms.domain.Comment;
 import com.zhangzhi.cms.domain.User;
+import com.zhangzhi.cms.service.ArticleService;
 import com.zhangzhi.cms.service.CategoryService;
 import com.zhangzhi.cms.service.ChannelService;
 import com.zhangzhi.cms.service.CommentService;
@@ -33,7 +39,6 @@ import com.zhangzhi.myUtil.StreamUtil;
 
 /**
  * @author zhangzhi
- *2019年9月16日
  */
 public class ArticleServiceImpTest extends JunitParent{
 
@@ -51,6 +56,15 @@ public class ArticleServiceImpTest extends JunitParent{
 	
 	@Resource
 	private CategoryService daocate;
+	
+	@Resource
+	private KafkaTemplate kafdao;
+	
+	@Resource
+	private RedisTemplate redao;
+	
+	@Autowired
+	private ArticleService daoart;
 	
 	@Test
 	public void testSelects() {
@@ -114,15 +128,33 @@ public class ArticleServiceImpTest extends JunitParent{
 		}
 	}
 	
+//	解析文章
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testFile() {
-		File files = new File("E:\\aa\\dao");
+		File files = new File("E:\\aa\\abcd");
 		File[] fi = files.listFiles();
+		List<Article> arr = new ArrayList();
+		int a=0;
 		for (File file : fi) {
+			a++;
+			if(a>=50) {
+				break;
+			}
 			Article art = new Article();
 			String title = file.getName();//标题
 			art.setTitle(title.substring(0,title.lastIndexOf(".")));
 			
+			
+			int channel = RandomUtil.random(1, 9);
+			art.setChannelId(channel);
+			//根据栏目id查询分类
+			
+			
+			List<Category> list = daocate.selectsBy(channel);
+			
+			Category category = list.get(RandomUtil.random(0, list.size()-1));
+			art.setCategoryId(category.getId());
 			
 			String con = StreamUtil.readTextFile(file);//内容
 			art.setContent(con);
@@ -136,15 +168,24 @@ public class ArticleServiceImpTest extends JunitParent{
 			art.setCreated(new Date());//创建日期
 			art.setUpdated(date);
 			
-			art.setHot(RandomUtil.random(0, 1));//是否人
+//			art.setHot(RandomUtil.random(0, 1));//是否热
+			art.setHot(1);
+			art.setPicture("98576e31-6eef-4b40-9e62-0b495d9bf29b.png");//默认的一照片
 			art.setHits(RandomUtil.random(0, 100000));//点击量
 			art.setStatus(1);//已审核
 			art.setDeleted(1);//未删除
 			art.setUserId(125);
+			art.setHits(0);
+			art.setPageview(0);
 			
-			daoar.insertSelective(art);
+//			daoar.insertSelective(art);
+			arr.add(art);
 		}
-//		
+		System.out.println(a);
+		String str = JSON.toJSONString(arr);
+		redao.opsForValue().set("50art", str);
+
+		
 //		String str = StreamUtil.readTextFile(new File("E:\\aa\\日2.txt"));
 //		System.out.println(str.trim());
 	}
@@ -226,9 +267,32 @@ public class ArticleServiceImpTest extends JunitParent{
 	public void selectadd() {
 		
 		Article art = new Article();
-		art.setId(11);
 		art.setComments(1); //默认一次只加一条评论
-		daoar.updateByPrimaryKeySelective(art);//给文章的评论加一
+//		daoar.updateByPrimaryKeySelective(art);//给文章的评论加一
+		art.setTitle("这是测试的");
+		int channel = RandomUtil.random(1, 9);
+		art.setChannelId(channel);
+		//根据栏目id查询分类
+		
+		art.setContent("56");
+		art.setSummary("445");//摘要
+		Calendar c = Calendar.getInstance();
+		c.set(2019, 0, 1, 0, 0, 0);
+		Date date = DateUtil.randomDate(c.getTime(), new Date());
+		art.setCreated(new Date());//创建日期
+		art.setUpdated(date);
+		
+//		art.setHot(RandomUtil.random(0, 1));//是否热
+		art.setHot(1);
+		art.setHits(RandomUtil.random(0, 100000));//点击量
+		art.setStatus(1);//已审核
+		art.setDeleted(1);//未删除
+		art.setUserId(125);
+		art.setHits(0);
+		art.setPageview(0);
+		
+		
+		daoart.insertSelective(art);
 	}
 	
 	

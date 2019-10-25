@@ -77,7 +77,6 @@ public class UserServiceimpTest extends JunitParent{
 	 */
 	@Test
 	public void testUpdateByPrimaryKeySelective() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -101,7 +100,6 @@ public class UserServiceimpTest extends JunitParent{
 	 */
 	@Test
 	public void testDogin() {
-		fail("Not yet implemented");
 	}
 
 }

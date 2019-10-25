@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+		<!-- 使用的common的 分页 -->
 			<c:if test="${hotArticles.total>0}">
 				<c:if test="${hotArticles.pageNum>1}">
 					<a   onclick="fen(1)" style="cursor: pointer;">首页</a>

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="/resources/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
+<!-- 个人单篇文章-->
 	<div class="container">
 	
 <button class="btn btn-success" onclick="pre()">上一篇</button>
@@ -31,6 +32,7 @@
 			<dt><h1 align="center">${art.title}</h1> </dt>
 			<dd>作者:${art.user.nickname}  &nbsp; &nbsp;
 				发布日期:&nbsp;<fmt:formatDate value="${art.created}" pattern="yyyy-MM-dd HH:mm:ss"/> &nbsp;&nbsp;
+				浏览量:${art.pageview}&nbsp;&nbsp;
 				<span style="color: red;float: right;font-size: 24px;" onclick="wenhits(${art.id})" >点击量:${art.hits}
 		   	 				<img alt="" src="/resources/img/ico/png/thumb-up-2x.png" >
 				</span>
@@ -92,9 +94,9 @@
     	 	<c:forEach items="${coments}" var="li">
     	 		<dt>${li.userid.username} &nbsp;&nbsp; 
     	 			<fmt:formatDate  value="${li.created}" pattern="yyyy-MM-dd HH-mm-ss"/>
-    	 			<%-- <p style="display: inline-block;float: right;.text-decoration-none;cursor: pointer;" onclick="dian(${li.id})">${li.hits}
+    	 			 <p style="display: inline-block;float: right;.text-decoration-none;cursor: pointer;" onclick="dian(${li.id})">${li.hits}
     	 				<img alt="" src="/resources/img/ico/png/thumb-up-2x.png" >
-    	 			</p> --%>
+    	 			</p> 
     	 		</dt>
     	 		
     	 		<dd >${li.content}</dd>
